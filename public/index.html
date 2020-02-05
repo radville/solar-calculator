@@ -23,7 +23,9 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>Solar Calculator</title>
+    <!-- Adapted from "Geometry Service - Calculate geometry" -->
+    <!-- at https://developers.arcgis.com/javascript/3/jssamples/util_measurepoly.html -->
+
     <link rel="stylesheet" href="https://js.arcgis.com/3.31/esri/css/esri.css">
     <script src="https://js.arcgis.com/3.31/"></script>
     <script>
@@ -40,54 +42,57 @@
         "esri/tasks/AreasAndLengthsParameters",
         "esri/toolbars/draw",
         "esri/symbols/SimpleFillSymbol"],
-  function(dom, lang, json, esriConfig, Map, Graphic, Geometry, Extent, SpatialReference, GeometryService, AreasAndLengthsParameters, Draw, SimpleFillSymbol){
+      function(dom, lang, json, esriConfig, Map, Graphic, Geometry, 
+        Extent, SpatialReference, GeometryService, AreasAndLengthsParameters, Draw, SimpleFillSymbol){
 
-    //identify proxy page to use if the toJson payload to the geometry service is greater than 2000 characters.
-    //If this null or not available the project and lengths operation will not work.  Otherwise it will do a http post to the proxy.
-    esriConfig.defaults.io.proxyUrl = "/proxy/";
-    esriConfig.defaults.io.alwaysUseProxy = false;
+      //identify proxy page to use if the toJson payload to the geometry service is greater than 2000 characters.
+      //If this null or not available the project and lengths operation will not work.  Otherwise it will do a http post to the proxy.
+      esriConfig.defaults.io.proxyUrl = "/proxy/";
+      esriConfig.defaults.io.alwaysUseProxy = false;
 
-    var map = new Map("mapDiv", {
-      basemap: "topo",
-      center: [-122.778, 45.483],
-      zoom: 15
+      let map = new Map("mapDiv", {
+        basemap: "topo",
+        center: [-118, 34],
+        zoom: 8
+      });
+      
+      map.on("load", function() {
+        var tb = new Draw(map);
+        tb.on("draw-end", lang.hitch(map, getAreaAndLength));
+        tb.activate(Draw.FREEHAND_POLYGON);
+      });
+      
+      let geometryService = new GeometryService("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Utilities/Geometry/GeometryServer");
+      geometryService.on("areas-and-lengths-complete", outputAreaAndLength);
+
+      function getAreaAndLength(evtObj) {
+        let map = this,
+            geometry = evtObj.geometry;
+        map.graphics.clear();
+        
+        let graphic = map.graphics.add(new Graphic(geometry, new SimpleFillSymbol()));
+        
+        //setup the parameters for the areas and lengths operation
+        let areasAndLengthParams = new AreasAndLengthsParameters();
+        areasAndLengthParams.lengthUnit = GeometryService.UNIT_FOOT;
+        areasAndLengthParams.areaUnit = GeometryService.UNIT_ACRES;
+        areasAndLengthParams.calculationType = "geodesic";
+        geometryService.simplify([geometry], function(simplifiedGeometries) {
+          areasAndLengthParams.polygons = simplifiedGeometries;
+          geometryService.areasAndLengths(areasAndLengthParams);
+        });
+    }
+
+    function outputAreaAndLength(evtObj) {
+      let result = evtObj.result;
+      dom.byId("area").innerHTML = result.areas[0].toFixed(3) + " acres";
+      dom.byId("length").innerHTML = result.lengths[0].toFixed(3) + " feet";
+    }
     });
-    
-    map.on("load", function() {
-      var tb = new Draw(map);
-      tb.on("draw-end", lang.hitch(map, getAreaAndLength));
-      tb.activate(Draw.FREEHAND_POLYGON);
-    });
-    
-    var geometryService = new GeometryService("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Utilities/Geometry/GeometryServer");
-    geometryService.on("areas-and-lengths-complete", outputAreaAndLength);
-
-  function getAreaAndLength(evtObj) {
-    var map = this,
-        geometry = evtObj.geometry;
-    map.graphics.clear();
-    
-    var graphic = map.graphics.add(new Graphic(geometry, new SimpleFillSymbol()));
-    
-    //setup the parameters for the areas and lengths operation
-    var areasAndLengthParams = new AreasAndLengthsParameters();
-    areasAndLengthParams.lengthUnit = GeometryService.UNIT_FOOT;
-    areasAndLengthParams.areaUnit = GeometryService.UNIT_ACRES;
-    areasAndLengthParams.calculationType = "geodesic";
-    geometryService.simplify([geometry], function(simplifiedGeometries) {
-      areasAndLengthParams.polygons = simplifiedGeometries;
-      geometryService.areasAndLengths(areasAndLengthParams);
-    });
-  }
-
-  function outputAreaAndLength(evtObj) {
-    var result = evtObj.result;
-    console.log(json.stringify(result));
-    dom.byId("area").innerHTML = result.areas[0].toFixed(3) + " acres";
-    dom.byId("length").innerHTML = result.lengths[0].toFixed(3) + " feet";
-  }
-  });
   </script>
+
+  <title>Solar Calculator</title>
+
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
