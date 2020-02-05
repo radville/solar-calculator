@@ -1,9 +1,10 @@
 // Adapted from "Geometry Service - Calculate geometry"
 // at https://developers.arcgis.com/javascript/3/jssamples/util_measurepoly.html
+import React from 'react';
 
-export const geometryService = () => {
+const geometryService = () => {
     console.log("here")
-)
+
 require(["dojo/dom",
           "dojo/_base/lang",
           "dojo/json",
@@ -24,11 +25,11 @@ require(["dojo/dom",
       esriConfig.defaults.io.proxyUrl = "/proxy/";
       esriConfig.defaults.io.alwaysUseProxy = false;
 
-    //   var map = new Map("mapDiv", {
-    //     basemap: "topo",
-    //     center: [-122.778, 45.483],
-    //     zoom: 15
-    //   });
+      var map = new Map("mapDiv", {
+        basemap: "topo",
+        center: [-122.778, 45.483],
+        zoom: 15
+      });
       
       map.on("load", function() {
         var tb = new Draw(map);
@@ -64,4 +65,7 @@ require(["dojo/dom",
       dom.byId("length").innerHTML = result.lengths[0].toFixed(3) + " feet";
     }
   });
+  return <div>here</div>
 }
+
+export default geometryService;
