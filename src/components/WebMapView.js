@@ -6,7 +6,7 @@ import { loadModules } from 'esri-loader';
 import useScript from '../hooks/useScript';
 
 export const WebMapView = () => {
-  useScript('./scripts/geometryService.js');
+  useScript('../scripts/geometryService.js');
   // useScript('https://js.arcgis.com/3.31/');
 
   // get a reference to a DOM element created with React component
