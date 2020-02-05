@@ -1,6 +1,8 @@
 // Adapted from "Geometry Service - Calculate geometry"
 // at https://developers.arcgis.com/javascript/3/jssamples/util_measurepoly.html
-console.log("here")
+
+export const geometryService = () => {
+    console.log("here")
 )
 require(["dojo/dom",
           "dojo/_base/lang",
@@ -62,3 +64,4 @@ require(["dojo/dom",
       dom.byId("length").innerHTML = result.lengths[0].toFixed(3) + " feet";
     }
   });
+}

@@ -4,10 +4,14 @@
 import React, { useEffect, useRef } from 'react';
 import { loadModules } from 'esri-loader';
 import useScript from '../hooks/useScript';
+import geometryService from '../scripts/geometryService'
 
 export const WebMapView = () => {
-  useScript('../scripts/geometryService.js');
-  // useScript('https://js.arcgis.com/3.31/');
+  // useScript('../scripts/geometryService.js');
+
+  componentDidMount(
+    geometryService()
+  )
 
   // get a reference to a DOM element created with React component
     const mapRef = useRef();
