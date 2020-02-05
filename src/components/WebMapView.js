@@ -5,6 +5,7 @@ import React, { useEffect, useRef } from 'react';
 import { loadModules } from 'esri-loader';
 
 export const WebMapView = () => {
+  // get a reference to a DOM element created with React component
     const mapRef = useRef();
 
     useEffect(
