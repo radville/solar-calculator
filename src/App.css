@@ -36,3 +36,8 @@
     transform: rotate(360deg);
   }
 }
+
+/* ArcGIS mapview will have a non-zero height */
+.webmap {
+  height: 400px;
+}
