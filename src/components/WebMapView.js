@@ -21,8 +21,8 @@ export const WebMapView = () => {
           const view = new MapView({
             container: mapRef.current,
             map: map,
-            center: [-118, 34],
-            zoom: 8
+            center: [-100, 38],
+            zoom: 4
           });
 
           return () => {
