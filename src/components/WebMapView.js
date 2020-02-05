@@ -1,4 +1,4 @@
-// From "Using the ArcGIS API for JavaScript with React"
+// Adapted from "Using the ArcGIS API for JavaScript with React"
 // found here: https://developers.arcgis.com/javascript/latest/guide/react/
 
 import React, { useEffect, useRef } from 'react';
@@ -17,7 +17,7 @@ export const WebMapView = () => {
             basemap: 'topo-vector'
           });
 
-          // load the map view at the ref's DOM node
+          // load the map view at location specified by 'center'
           const view = new MapView({
             container: mapRef.current,
             map: map,
