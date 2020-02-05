@@ -63,7 +63,7 @@
       });
       
       let geometryService = new GeometryService("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Utilities/Geometry/GeometryServer");
-      geometryService.on("areas-and-lengths-complete", outputAreaAndLength);
+      geometryService.on("areas-and-lengths-complete", outputAreaAndPower);
 
       function getAreaAndLength(evtObj) {
         let map = this,
@@ -72,7 +72,7 @@
         
         let graphic = map.graphics.add(new Graphic(geometry, new SimpleFillSymbol()));
         
-        //setup the parameters for the areas and lengths operation
+        //setup the parameters for the area and power calculation
         var areasAndLengthParams = new AreasAndLengthsParameters();
         areasAndLengthParams.lengthUnit = GeometryService.UNIT_METER;
         areasAndLengthParams.areaUnit = GeometryService.UNIT_SQUARE_METERS;
@@ -83,11 +83,17 @@
         });
     }
 
-    function outputAreaAndLength(evtObj) {
+    function outputAreaAndPower(evtObj) {
       var result = evtObj.result;
-      console.log(json.stringify(result));
-      dom.byId("area").innerHTML = result.areas[0].toFixed(2) + " square meters";
-      dom.byId("length").innerHTML = result.areas[0].toFixed(2) * 3;
+      // area of polygon selected by user
+      dom.byId("area").innerHTML = result.areas[0].toFixed(0) + " m" + "2".sup();
+
+      // from https://photovoltaic-software.com/principle-ressources/how-calculate-solar-energy-power-pv-systems
+      // Nominal power = A * r * H * PR, where A = total solar panel area, r = solar panel efficiency,
+      // H = annual average solar radtion on tilted panels, and PR = performance ratio, coefficient for losses
+      // Assumptions: standard test conditions (STC): radiation=1000 W/m2, cell temperature=25C, Wind speed=1 m/s, AM=1.5
+      //              r = 15%, H = 1250 kWh/m^2*year, PR = 0.75
+      dom.byId("power").innerHTML = (result.areas[0] * 0.15 * 1250 * 0.75).toFixed(0) + " kWh/year";
     }
     });
   </script>
@@ -98,15 +104,6 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+    
   </body>
 </html>

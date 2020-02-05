@@ -16,7 +16,7 @@ function App() {
         <br /><br />
         <span className="label">Area:</span> <span id="area"></span>
         <br />
-        <span className="label">Nominal Power:</span> <span id="length"></span>
+        <span className="label">Nominal Power:</span> <span id="power"></span>
       </div>
     </div>
   );
