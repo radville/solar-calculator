@@ -1,6 +1,7 @@
 // Adapted from "Geometry Service - Calculate geometry"
 // at https://developers.arcgis.com/javascript/3/jssamples/util_measurepoly.html
-
+console.log("here")
+)
 require(["dojo/dom",
           "dojo/_base/lang",
           "dojo/json",
@@ -21,11 +22,11 @@ require(["dojo/dom",
       esriConfig.defaults.io.proxyUrl = "/proxy/";
       esriConfig.defaults.io.alwaysUseProxy = false;
 
-      var map = new Map("mapDiv", {
-        basemap: "topo",
-        center: [-122.778, 45.483],
-        zoom: 15
-      });
+    //   var map = new Map("mapDiv", {
+    //     basemap: "topo",
+    //     center: [-122.778, 45.483],
+    //     zoom: 15
+    //   });
       
       map.on("load", function() {
         var tb = new Draw(map);

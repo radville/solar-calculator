@@ -14,9 +14,9 @@ function App() {
     <div id="info" class="esriSimpleSlider">
       Draw a polygon where you would like your solar installation to calculate the nominal power.
       <br /><br />
-      <span class="label">Area:</span> <span id="area"></span>
+      <span className="label">Area:</span> <span id="area"></span>
       <br />
-      <span class="label">Nominal Power:</span> <span id="length"></span>
+      <span className="label">Nominal Power:</span> <span id="length"></span>
     </div>
     </div>
   );
