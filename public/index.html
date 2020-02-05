@@ -73,9 +73,9 @@
         let graphic = map.graphics.add(new Graphic(geometry, new SimpleFillSymbol()));
         
         //setup the parameters for the areas and lengths operation
-        let areasAndLengthParams = new AreasAndLengthsParameters();
-        areasAndLengthParams.lengthUnit = GeometryService.UNIT_FOOT;
-        areasAndLengthParams.areaUnit = GeometryService.UNIT_ACRES;
+        var areasAndLengthParams = new AreasAndLengthsParameters();
+        areasAndLengthParams.lengthUnit = GeometryService.UNIT_METER;
+        areasAndLengthParams.areaUnit = GeometryService.UNIT_SQUARE_METERS;
         areasAndLengthParams.calculationType = "geodesic";
         geometryService.simplify([geometry], function(simplifiedGeometries) {
           areasAndLengthParams.polygons = simplifiedGeometries;
@@ -84,9 +84,10 @@
     }
 
     function outputAreaAndLength(evtObj) {
-      let result = evtObj.result;
-      dom.byId("area").innerHTML = result.areas[0].toFixed(3) + " acres";
-      dom.byId("length").innerHTML = result.lengths[0].toFixed(3) + " feet";
+      var result = evtObj.result;
+      console.log(json.stringify(result));
+      dom.byId("area").innerHTML = result.areas[0].toFixed(2) + " square meters";
+      dom.byId("length").innerHTML = result.areas[0].toFixed(2) * 3;
     }
     });
   </script>

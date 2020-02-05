@@ -34,7 +34,9 @@
 /* Map styling */
 
 /* ArcGIS mapview will have a non-zero height */
-
+.webmap {
+  height: 400px;
+}
 
 /* Geometry Service Styling */
 html, body, #mapDiv {
