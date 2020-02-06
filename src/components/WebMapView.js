@@ -19,12 +19,11 @@ export class WebMapView extends React.Component {
     loadModules(['esri/Map', 
       'esri/views/MapView', 
       'esri/widgets/Search',
-      "esri/Graphic",
       "esri/layers/GraphicsLayer",
       "esri/widgets/Sketch",
       "esri/geometry/geometryEngine"
         ], { css: true })
-    .then(([ArcGISMap, MapView, Search, Graphic, GraphicsLayer, Sketch, geometryEngine]) => {
+    .then(([ArcGISMap, MapView, Search, GraphicsLayer, Sketch, geometryEngine]) => {
       const map = new ArcGISMap({
         basemap: 'topo-vector'
       });
