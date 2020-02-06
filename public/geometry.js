@@ -1,5 +1,3 @@
-// Adapted from "Geometry Service - Calculate geometry"
-// at https://developers.arcgis.com/javascript/3/jssamples/util_measurepoly.html
 require(["dojo/dom",
         "dojo/_base/lang",
         "dojo/json",
