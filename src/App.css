@@ -18,10 +18,6 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -33,33 +29,28 @@
 
 /* Map styling */
 
-/* ArcGIS mapview will have a non-zero height */
+/* ArcGIS mapview has a non-zero height */
 .webmap {
   height: 400px;
 }
 
 /* Geometry Service Styling */
-html, body, #mapDiv {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-}
 #info {
-  bottom: 20px;
+  bottom: 6em;
   color: #444;
   height: auto;
   font-family: arial;
-  left: 20px;
+  left: 1em;
   margin: 5px;
   padding: 10px;
   position: absolute;
   text-align: left;
-  width: 200px;
+  width: 22em;
   z-index: 40;
 }
 .label {
   display: inline-block;
-  width: 4em;
+  width: 8em;
+  font-weight: bold;
 }
 
