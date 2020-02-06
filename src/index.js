@@ -9,7 +9,6 @@ import { setDefaultOptions } from 'esri-loader';
 // the first time any react-arcgis components are rendered
 setDefaultOptions({ css: true });
 
-
 ReactDOM.render(
     <App />,
     document.getElementById('root')

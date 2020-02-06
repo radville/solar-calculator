@@ -1,5 +1,5 @@
 // Adapted from ArcGIS tutorials, including:
-//  "Using the ArcGIS API for JavaScript with React"
+// "Using the ArcGIS API for JavaScript with React"
 // found here: https://developers.arcgis.com/javascript/latest/guide/react/
 // and "Draw Graphics" at https://developers.arcgis.com/labs/javascript/draw-graphics/
 
@@ -21,13 +21,15 @@ export class WebMapView extends React.Component {
       'esri/widgets/Search',
       "esri/layers/GraphicsLayer",
       "esri/widgets/Sketch",
-      "esri/geometry/geometryEngine"
-        ], { css: true })
+      "esri/geometry/geometryEngine"], { css: true })
     .then(([ArcGISMap, MapView, Search, GraphicsLayer, Sketch, geometryEngine]) => {
+
+      // create map
       const map = new ArcGISMap({
         basemap: 'topo-vector'
       });
 
+      // add map view
       let view = new MapView({
         container: this.mapRef.current,
         map: map,
@@ -41,7 +43,7 @@ export class WebMapView extends React.Component {
       });
       view.ui.add(search, "top-right");
 
-      // add a graphics layer
+      // add graphics layer to be used by sketch toolbar
       let graphicsLayer = new GraphicsLayer();
       map.add(graphicsLayer)
 
