@@ -10,20 +10,35 @@ require(["dojo/dom",
         "esri/tasks/GeometryService",
         "esri/tasks/AreasAndLengthsParameters",
         "esri/toolbars/draw",
-        "esri/symbols/SimpleFillSymbol"],
+        "esri/symbols/SimpleFillSymbol",
+        "esri/widgets/Search",
+        "esri/views/MapView"],
       function(dom, lang, json, esriConfig, Map, Graphic, Geometry, 
-        Extent, SpatialReference, GeometryService, AreasAndLengthsParameters, Draw, SimpleFillSymbol){
+        Extent, SpatialReference, GeometryService, AreasAndLengthsParameters, Draw, SimpleFillSymbol, Search, MapView){
 
       //identify proxy page to use if the toJson payload to the geometry service is greater than 2000 characters.
       //If this null or not available the project and lengths operation will not work.  Otherwise it will do a http post to the proxy.
       esriConfig.defaults.io.proxyUrl = "/proxy/";
       esriConfig.defaults.io.alwaysUseProxy = false;
 
-      let map = new Map("mapDiv", {
+      let map = Map("mapDiv", {
         basemap: "topo",
         center: [-118, 34],
         zoom: 8
       });
+
+      let view = new MapView({
+        container: this.mapRef.current,
+        map: map,
+        center: [-100, 38],
+        zoom: 4
+      });
+      
+      // add searchbar 
+      let search = new Search({
+        view: view
+      });
+      view.ui.add(search, "top-right");
       
       map.on("load", function() {
         var tb = new Draw(map);
