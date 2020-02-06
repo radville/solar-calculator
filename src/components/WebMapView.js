@@ -1,5 +1,7 @@
-// Adapted from "Using the ArcGIS API for JavaScript with React"
+// Adapted from ArcGIS tutorials, including:
+//  "Using the ArcGIS API for JavaScript with React"
 // found here: https://developers.arcgis.com/javascript/latest/guide/react/
+// and "Draw Graphics" at https://developers.arcgis.com/labs/javascript/draw-graphics/
 
 import React from 'react';
 import { loadModules } from 'esri-loader';
@@ -16,9 +18,12 @@ export class WebMapView extends React.Component {
     // lazy load the required ArcGIS API for JavaScript modules and CSS
     loadModules(['esri/Map', 
       'esri/views/MapView', 
-      'esri/widgets/Search'], { css: true })
-    .then(([ArcGISMap, MapView, Search, lang, Draw, Graphic, GeometryService, 
-      AreasAndLengthsParameters, SimpleFillSymbol, dom, json]) => {
+      'esri/widgets/Search',
+      "esri/Graphic",
+      "esri/layers/GraphicsLayer",
+      "esri/widgets/Sketch",
+    ], { css: true })
+    .then(([ArcGISMap, MapView, Search, Graphic, GraphicsLayer, Sketch]) => {
       const map = new ArcGISMap({
         basemap: 'topo-vector'
       });
@@ -36,36 +41,22 @@ export class WebMapView extends React.Component {
       });
       view.ui.add(search, "top-right");
 
-      // let draw = new Draw(map);
-      // draw.on("draw-end", lang.hitch(map, getAreaAndLength));
-      // draw.activate(Draw.FREEHAND_POLYGON);
+      // add a graphics layer
+      let graphicsLayer = new GraphicsLayer();
+      map.add(graphicsLayer)
 
-      // function outputAreaAndLength(evtObj) {
-      //   let result = evtObj.result;
-      //   console.log(json.stringify(result));
-      //   dom.byId("area").innerHTML = result.areas[0].toFixed(3) + " acres";
-      //   dom.byId("length").innerHTML = result.lengths[0].toFixed(3) + " feet";
-      // }
-      
-      // function getAreaAndLength(evtObj) {
-      //   let geometry = evtObj.geometry;
-      //   map.graphics.clear();
-        
-      //   let graphic = map.graphics.add(new Graphic(geometry, new SimpleFillSymbol()));
-        
-      //   //setup the parameters for the areas and lengths operation
-      //   let geometryService = new GeometryService("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Utilities/Geometry/GeometryServer");
-      //   geometryService.on("areas-and-lengths-complete", outputAreaAndLength);
+      // Add the Sketch toolbar to draw polygons
+      let sketch = new Sketch({
+        view: view,
+        layer: graphicsLayer
+      })
 
-      //   const areasAndLengthParams = new AreasAndLengthsParameters();
-      //   areasAndLengthParams.lengthUnit = GeometryService.UNIT_FOOT;
-      //   areasAndLengthParams.areaUnit = GeometryService.UNIT_ACRES;
-      //   areasAndLengthParams.calculationType = "geodesic";
-      //   geometryService.simplify([geometry], function(simplifiedGeometries) {
-      //     areasAndLengthParams.polygons = simplifiedGeometries;
-      //     geometryService.areasAndLengths(areasAndLengthParams);
-      //   });
-      // }
+      view.ui.add(sketch, "top-right")
+
+      sketch.on("create", function(event) {
+        if (event.state === "complete") {
+        console.log("sketched") }       
+      });
       
     });
   }
