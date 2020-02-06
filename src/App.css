@@ -34,16 +34,21 @@
   height: 400px;
 }
 
+/* Sketch toolbar Styling */
+.esri-component.esri-sketch esri-widget.esri-sketch__panel {
+  top: 10em;
+  position: relative;
+}
 /* Geometry Service Styling */
 #info {
-  bottom: 6em;
+  top: 17em;
   color: #444;
   height: auto;
   font-family: arial;
-  left: 1em;
+  left: .5em;
   margin: 5px;
   padding: 10px;
-  position: absolute;
+  /* position: absolute; */
   text-align: left;
   width: 22em;
   z-index: 40;

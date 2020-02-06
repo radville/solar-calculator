@@ -55,7 +55,7 @@ export class WebMapView extends React.Component {
       })
 
       // add sketch toolbar to top corner
-      view.ui.add(sketch, "top-right")
+      view.ui.add(sketch, "top-left")
       
       // when polygon is created, calculate area and nominal power
       sketch.on("create", function(event) {
