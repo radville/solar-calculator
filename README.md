@@ -3,6 +3,7 @@ This Solar Calculator demo allows users to search for a location on the map, dra
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app)
 
+
 ## Built With
 
 * [React 16.12.0](https://reactjs.org/)
@@ -36,13 +37,18 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
+
 ## Assumptions
+### Nominal power calculations
 Assumptions for nominal power calculations were derived from "How to calculate the annual solar energy output of a photovoltaic system?" at https://photovoltaic-software.com/principle-ressources/how-calculate-solar-energy-power-pv-systems
     
 Nominal power (kWh/year) = A (m²) * r * H (kWh/m²*year) * PR,
 where A = total solar panel area, r = solar panel efficiency ratio, H = annual average solar radtion on tilted panels, and PR = performance ratio/coefficient for losses
 
 Values chosen to represent average conditions in this demo were r = 0.15, H = 1250, and PR = 0.75. In real applications, these would vary by location. Calculations also assume standard test conditions (STC): radiation = 1000 W/m2, cell temperature = 25C, Wind speed = 1 m/s, AM = 1.5.
+
+## Map data source
+Map data are all pulled from the ArcGIS API for JavaScript (version 4.14.0) using the esri-loader library.
 
 ## Contributing
 
