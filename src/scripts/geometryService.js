@@ -28,7 +28,7 @@ export function geometryService(map) {
       esriConfig.defaults.io.alwaysUseProxy = false;
 
       map.on("load", function() {
-        var tb = new Draw(map);
+        let tb = new Draw(map);
         tb.on("draw-end", lang.hitch(map, getAreaAndLength));
         tb.activate(Draw.FREEHAND_POLYGON);
       });
