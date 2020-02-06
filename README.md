@@ -1,4 +1,4 @@
-# solar-calculator
+# Solar Calculator
 This Solar Calculator demo allows users to search for a location on the map, draw a polygon over any area, and see the nominal power output of a solar array in that area.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app)
@@ -8,7 +8,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 * [React 16.12.0](https://reactjs.org/)
 
 
-### Installing and running in development mode
+## Installing and running in development mode
 
 1. Clone this repo to your local machine from `https://github.com/radville/solar-calculator` 
 
@@ -17,7 +17,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 3. Open [http://localhost:3000](http://localhost:3000) to view it in the browser. The page will reload if you make edits. You will also see any lint errors in the console.
 
 
-### `yarn build`: Build for production
+## Build for production
 
 Run `yarn build` to build the app for production to the `build` folder.<br />
 It correctly bundles React in production mode and optimizes the build for the best performance.
@@ -37,12 +37,12 @@ Instead, it will copy all the configuration files and the transitive dependencie
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
 ## Assumptions
-    Assumptions for nominal power calculations were derived from "How to calculate the annual solar energy output of a photovoltaic system?" at https://photovoltaic-software.com/principle-ressources/how-calculate-solar-energy-power-pv-systems
+Assumptions for nominal power calculations were derived from "How to calculate the annual solar energy output of a photovoltaic system?" at https://photovoltaic-software.com/principle-ressources/how-calculate-solar-energy-power-pv-systems
     
-    Nominal power (kWh/year) = A (m²) * r * H (kWh/m²*year) * PR,
-    where A = total solar panel area, r = solar panel efficiency ratio, H = annual average solar radtion on tilted panels, and PR = performance ratio/coefficient for losses
+Nominal power (kWh/year) = A (m²) * r * H (kWh/m²*year) * PR,
+where A = total solar panel area, r = solar panel efficiency ratio, H = annual average solar radtion on tilted panels, and PR = performance ratio/coefficient for losses
 
-    Values chosen to represent average conditions in this demo were r = 0.15, H = 1250, and PR = 0.75. In real applications, these would vary by location. Calculations also assume standard test conditions (STC): radiation = 1000 W/m2, cell temperature = 25C, Wind speed = 1 m/s, AM = 1.5.
+Values chosen to represent average conditions in this demo were r = 0.15, H = 1250, and PR = 0.75. In real applications, these would vary by location. Calculations also assume standard test conditions (STC): radiation = 1000 W/m2, cell temperature = 25C, Wind speed = 1 m/s, AM = 1.5.
 
 ## Contributing
 
