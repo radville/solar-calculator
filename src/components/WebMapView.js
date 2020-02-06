@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { loadModules } from 'esri-loader';
-// import geometryService from '../scripts/geometryService'
+import ReactDOM from 'react-dom'
 
 export class WebMapView extends React.Component {
   constructor(props) {
@@ -52,15 +52,23 @@ export class WebMapView extends React.Component {
         layer: graphicsLayer
       })
 
+      // add sketch toolbar to top corner
       view.ui.add(sketch, "top-right")
 
+      // when polygon is created, calculate area and nominal power
       sketch.on("create", function(event) {
         if (event.state === "complete") {
-          let geometry = event.graphic.geometry
-          // area in square meters, accounts for curve of Earth
+          let geometry = event.graphic.geometry.extent
+
+          // area in square meters, accounts for curve of Earth, rounded to nearest number
           let area = geometryEngine.geodesicArea(geometry, 109404)
-          // let area = geoEngine.geodesicArea(event.graphic.geometry, "square-meters")
-          console.log(geometry) 
+
+          // nominal power - see ReadMe for calculation assumptions
+          let nominalPower = (area * 0.15 * 1250 * 0.75)
+
+          // add values to legend
+          ReactDOM.render(area.toFixed(0) + " m^2", document.getElementById('area'));
+          ReactDOM.render(nominalPower.toFixed(0) + " kWh/year", document.getElementById('power'));
         }       
       });
       
