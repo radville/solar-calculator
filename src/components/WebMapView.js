@@ -89,4 +89,6 @@ export class WebMapView extends React.Component {
       <div className="webmap esri" ref={this.mapRef} />
     )
   }
-}
+};
+
+export default WebMapView;
