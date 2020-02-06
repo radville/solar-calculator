@@ -48,7 +48,8 @@ export class WebMapView extends React.Component {
       // Add the Sketch toolbar to draw polygons
       let sketch = new Sketch({
         view: view,
-        layer: graphicsLayer
+        layer: graphicsLayer,
+        availableCreateTools: ["polyline", "polygon", "rectangle"],
       })
 
       // add sketch toolbar to top corner
