@@ -3,6 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { setDefaultOptions } from 'esri-loader';
+
+// configure esri-loader to lazy load the CSS
+// the first time any react-arcgis components are rendered
+setDefaultOptions({ css: true });
+
 
 ReactDOM.render(
     <App />,

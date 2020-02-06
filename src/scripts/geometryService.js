@@ -2,10 +2,10 @@
 // at https://developers.arcgis.com/javascript/3/jssamples/util_measurepoly.html
 import React from 'react';
 
-const geometryService = () => {
+export function geometryService(map) {
     console.log("here")
 
-require(["dojo/dom",
+    loadModules(["dojo/dom",
           "dojo/_base/lang",
           "dojo/json",
           "esri/config",
@@ -17,20 +17,16 @@ require(["dojo/dom",
           "esri/tasks/GeometryService",
           "esri/tasks/AreasAndLengthsParameters",
           "esri/toolbars/draw",
-          "esri/symbols/SimpleFillSymbol"],
-    function(dom, lang, json, esriConfig, Map, Graphic, Geometry, Extent, SpatialReference, GeometryService, AreasAndLengthsParameters, Draw, SimpleFillSymbol){
+          "esri/symbols/SimpleFillSymbol"]
+          .then(([dom, lang, json, esriConfig, Map, Graphic, Geometry, Extent, 
+            SpatialReference, GeometryService, AreasAndLengthsParameters, Draw, 
+            SimpleFillSymbol]) => {
 
       //identify proxy page to use if the toJson payload to the geometry service is greater than 2000 characters.
       //If this null or not available the project and lengths operation will not work.  Otherwise it will do a http post to the proxy.
       esriConfig.defaults.io.proxyUrl = "/proxy/";
       esriConfig.defaults.io.alwaysUseProxy = false;
 
-      var map = new Map("mapDiv", {
-        basemap: "topo",
-        center: [-122.778, 45.483],
-        zoom: 15
-      });
-      
       map.on("load", function() {
         var tb = new Draw(map);
         tb.on("draw-end", lang.hitch(map, getAreaAndLength));
@@ -64,8 +60,8 @@ require(["dojo/dom",
       dom.byId("area").innerHTML = result.areas[0].toFixed(3) + " acres";
       dom.byId("length").innerHTML = result.lengths[0].toFixed(3) + " feet";
     }
-  });
-  return <div>here</div>
-}
+  })
+//   return <div>here</div>
+},
 
 export default geometryService;
