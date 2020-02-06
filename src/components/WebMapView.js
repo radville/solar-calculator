@@ -22,8 +22,9 @@ export class WebMapView extends React.Component {
       "esri/Graphic",
       "esri/layers/GraphicsLayer",
       "esri/widgets/Sketch",
-    ], { css: true })
-    .then(([ArcGISMap, MapView, Search, Graphic, GraphicsLayer, Sketch]) => {
+      "esri/geometry/geometryEngine"
+        ], { css: true })
+    .then(([ArcGISMap, MapView, Search, Graphic, GraphicsLayer, Sketch, geometryEngine]) => {
       const map = new ArcGISMap({
         basemap: 'topo-vector'
       });
@@ -55,7 +56,12 @@ export class WebMapView extends React.Component {
 
       sketch.on("create", function(event) {
         if (event.state === "complete") {
-        console.log("sketched") }       
+          let geometry = event.graphic.geometry
+          // area in square meters, accounts for curve of Earth
+          let area = geometryEngine.geodesicArea(geometry, 109404)
+          // let area = geoEngine.geodesicArea(event.graphic.geometry, "square-meters")
+          console.log(geometry) 
+        }       
       });
       
     });
