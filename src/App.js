@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import WebMapView from './components/WebMapView';
-import Legend from './Legend';
+import Legend from './components/Legend';
 
 function App() {
   return (
